@@ -1,8 +1,8 @@
 ---
-title: ADR-0003 批次採決定性運算
+title: ADR-0004 批次採決定性運算
 description: 為什麼批次沒有亂數,以及為什麼時間是注入進來的。
 sidebar:
-  order: 3
+  order: 4
 ---
 
 <span class="adr-status">已採納</span> · 2026-09-09
@@ -12,7 +12,7 @@ sidebar:
 先說清楚我的批次經驗來自哪裡,因為它和進件無關。
 
 **我維護過的進件是單一案件的同步操作**:業務人員按儲存、呼叫 SP、檢核通過就寫入
-([ADR-0004](/adr/0004-validation-in-app-not-sp/))。那裡沒有批次。
+([ADR-0002](/adr/0002-validation-in-app-not-sp/))。那裡沒有批次。
 
 **批次用在系統之間的每日資料交換**,而且基本上都是 SP 在跑。平常都很快,
 問題出在出事的時候:**常常不知道問題在哪,只能一筆一筆去試**。
@@ -75,7 +75,7 @@ public sealed class BatchRunner(ApplicationStore store, TimeProvider clock, ILog
 - **這裡的決定性是「同一個行程內」的。** 資料存在記憶體,重置後從頭開始。
   真實系統要跨執行做到這件事,還需要冪等鍵與失敗補償——見下。
 - **決定性只解決「能不能重跑比對」。** 它不會告訴你哪一筆為什麼失敗,
-  那是另一個決定([ADR-0005](/adr/0005-per-row-failure-reporting/))。
+  那是另一個決定([ADR-0003](/adr/0003-per-row-failure-reporting/))。
 
 ## 尚未處理的部分
 

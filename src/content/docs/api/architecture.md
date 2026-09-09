@@ -15,8 +15,8 @@ description: 進件 API 的組成、資料流與邊界。
 - **每日資料交換** — 系統之間的排程,基本上都用 SP 在跑。
 
 這個 API 把兩者都改用顯式契約重新表達,並針對各自的痛點做出不同的選擇。
-取捨寫在 [ADR-0004](/adr/0004-validation-in-app-not-sp/)(進件)與
-[ADR-0005](/adr/0005-per-row-failure-reporting/)(交換),兩篇都同時說明了
+取捨寫在 [ADR-0002](/adr/0002-validation-in-app-not-sp/)(進件)與
+[ADR-0003](/adr/0003-per-row-failure-reporting/)(交換),兩篇都同時說明了
 原本的做法在什麼條件下仍然是對的。
 
 ## 組成
@@ -51,7 +51,7 @@ Received ──▶ UnderReview ──▶ Approved ──▶ Disbursed
 
 `POST /v1/exchange/run` 對應每日資料交換:接受一批原始資料,逐筆逐欄檢查,
 壞的退回並說明原因,好的收下。欄位刻意全為字串,型別轉換是這一層的責任
-([ADR-0005](/adr/0005-per-row-failure-reporting/))。
+([ADR-0003](/adr/0003-per-row-failure-reporting/))。
 
 `POST /v1/batch/run` 把案件往下一個狀態推。**這個是這個專案的設計,不是原系統的複製品**
 ——它存在是為了把「使用者等不起的工作」移出請求路徑。

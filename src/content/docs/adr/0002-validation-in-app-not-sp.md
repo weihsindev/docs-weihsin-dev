@@ -1,8 +1,8 @@
 ---
-title: ADR-0004 檢核與交接放在應用層,不放在 Stored Procedure
+title: ADR-0002 檢核與交接放在應用層,不放在 Stored Procedure
 description: 為什麼進件的檢核從 SP 移到應用層,以及 SP 內檢核在什麼情況下仍然是對的。
 sidebar:
-  order: 4
+  order: 2
 ---
 
 <span class="adr-status">已採納</span> · 2026-09-09
@@ -48,14 +48,14 @@ T-SQL 沒有好的模組化手段,想複用一段檢核邏輯,最省事的做法
 **檢核放在應用層,進版本控制。** 驗證規則寫在 `ApplicationEndpoints.Validate`,
 每次變更都有 commit、有訊息、有 PR 可以回頭看。
 
-**規則只有一份。** 允許的狀態轉移集中在 `StateMachine`([ADR-0002](/adr/0002-explicit-state-machine/)),
+**規則只有一份。** 允許的狀態轉移集中在 `StateMachine` 這一個型別裡,
 沒有「複製一份改一改」這條路可以走。
 
 **交接用顯式契約,不用資料表。** 進件的結果是一個 HTTP 回應,不是「某張表多了一筆」。
 驗證失敗當場回 `400` 並列出是哪個欄位、為什麼,而不是靜靜地不插入。
 
 **入口只做快速檢核。** `POST /v1/applications` 只確認資料收得下,立刻回 `201`,
-狀態是 `Received`。真正的規則判斷延後到批次([ADR-0003](/adr/0003-deterministic-batch/))。
+狀態是 `Received`。真正的規則判斷延後到批次([ADR-0004](/adr/0004-deterministic-batch/))。
 使用者不必等那些他等不起的東西。
 
 ## 理由
