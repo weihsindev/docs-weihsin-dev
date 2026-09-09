@@ -1,0 +1,10 @@
+{
+  // 純靜態站,只上傳 dist。設定檔存在,wrangler 就不會自行推測專案型態。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "docs-weihsin-dev",
+  "compatibility_date": "2026-09-09",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

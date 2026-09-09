@@ -1,0 +1,77 @@
+/* 和 weihsin.dev 共用同一組視覺語言:紙感底色、墨黑、單一紅色 accent、
+   Archivo + Space Mono。這裡覆寫 Starlight 的 token,不改它的結構。 */
+
+:root {
+  --sl-font: 'Archivo', 'PingFang TC', 'Noto Sans TC', system-ui, sans-serif;
+  --sl-font-mono: 'Space Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --wd-accent: #d8341f;
+  --wd-paper: #f2f2f0;
+  --wd-ink: #131313;
+  --wd-rule: #c9c9c4;
+}
+
+/* 淺色(主要):對齊履歷站的紙感 */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #f7d9d3;
+  --sl-color-accent: var(--wd-accent);
+  --sl-color-accent-high: #8f2314;
+
+  --sl-color-white: #131313;
+  --sl-color-gray-1: #1c1c1a;
+  --sl-color-gray-2: #34342f;
+  --sl-color-gray-3: #5b5b54;
+  --sl-color-gray-4: #7c7c76;
+  --sl-color-gray-5: var(--wd-rule);
+  --sl-color-gray-6: #e6e5e0;
+  --sl-color-gray-7: #efeeea;
+  --sl-color-black: var(--wd-paper);
+
+  --sl-color-bg: var(--wd-paper);
+  --sl-color-bg-nav: var(--wd-paper);
+  --sl-color-bg-sidebar: var(--wd-paper);
+  --sl-color-hairline: var(--wd-rule);
+  --sl-color-hairline-light: #dededa;
+  --sl-color-text-accent: var(--wd-accent);
+}
+
+/* 深色:同一組色相,把明度反過來 */
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #4a1509;
+  --sl-color-accent: #e8563f;
+  --sl-color-accent-high: #f3b3a6;
+  --sl-color-text-accent: #e8563f;
+}
+
+/* 區塊編號的 mono 標籤,沿用履歷站左欄的語彙 */
+.sl-markdown-content h2 {
+  border-top: 1px solid var(--sl-color-hairline);
+  padding-top: 1.2rem;
+  letter-spacing: -0.015em;
+}
+
+.sl-markdown-content h1,
+.sl-markdown-content h2,
+.sl-markdown-content h3 {
+  font-weight: 700;
+}
+
+/* ADR 的狀態標籤 */
+.adr-status {
+  display: inline-block;
+  font-family: var(--sl-font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--sl-color-accent);
+  color: var(--sl-color-text-accent);
+  border-radius: 2px;
+}
+
+/* 表格在窄螢幕要能自己捲動,不要撐破頁面 */
+.sl-markdown-content table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
