@@ -74,10 +74,11 @@ Received ──▶ UnderReview ──▶ Approved ──▶ Disbursed
 
 這是**展示用的公開沙箱**,不是產品:
 
-- 沒有資料庫。資料在記憶體,每小時重置回種子狀態([ADR-0001](/adr/0001-no-database/))
+- 沒有資料庫。資料在記憶體,每小時重置回種子狀態([ADR-0001](/adr/0001-no-database/));
+  實際上縮到零副本時狀態就會消失,所以重置間隔只是上限([ADR-0006](/adr/0006-zero-cost-hosting/))
 - 沒有身分驗證。所有端點公開,寫入有筆數上限
 - 速率限制每個來源 IP 每分鐘 60 次,超過回 `429`
-- 部署為 scale-to-zero,**閒置後第一個請求會有冷啟動延遲**
+- 部署為 scale-to-zero,**閒置後第一個請求會有冷啟動延遲**([ADR-0006](/adr/0006-zero-cost-hosting/))
 
 **請勿送入任何真實個人資料。** `applicantRef` 請使用代號。
 

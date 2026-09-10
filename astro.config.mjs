@@ -34,6 +34,7 @@ export default defineConfig({
           label: '進件 API',
           items: [
             { label: '架構總覽', link: '/api/architecture/' },
+            { label: '部署方式', link: '/api/deployment/' },
           ],
         },
         {
