@@ -1,0 +1,38 @@
+# 建置靜態站並部署到 Cloudflare Workers。
+#
+# 為什麼不用 Cloudflare 的 Git 整合:那是一條額外的連線,斷掉時不會通知你 ——
+# 這個 repo 就這樣安靜壞過一次,連線斷掉後推了好幾個 commit 都沒有部署,
+# 而 dashboard 只放了一行提示。Actions 的觸發是 repo 內建的,沒有可以斷掉的連線;
+# 失敗會是紅色的 ✗。
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      # ci 而不是 install:完全照 package-lock,不會在 CI 裡悄悄升版。
+      - run: npm ci
+
+      - run: npm run build
+
+      # 用 package-lock 鎖定的 wrangler，不另外裝一個 action，
+      # 這樣本機 npm run deploy 和 CI 跑的是同一個版本。
+      - run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
